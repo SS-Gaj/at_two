@@ -1,11 +1,9 @@
 AtTwo::Application.routes.draw do
-  # get "static_pages/news"
-  # match '/news',    to: 'static_pages#news',    via: 'get'
+  get "users/new"
 	root 'static_pages#news'
-  # get "static_pages/anonce"
+  match '/signup',    to: 'users#new',              via: 'get'
   match '/anonce',    to: 'static_pages#anonce',    via: 'get'
-  # get "static_pages/article"
-  match '/article',    to: 'static_pages#article',    via: 'get'
+  match '/article',   to: 'static_pages#article',   via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
