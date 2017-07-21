@@ -1,6 +1,6 @@
 AtTwo::Application.routes.draw do
-  get "users/new"
-	root 'static_pages#news'
+  resources :users          #эта запись заменяет  get "users/new"
+	root 'static_pages#news'  #эта запись заменяет get "static_pages/home"
   match '/signup',    to: 'users#new',              via: 'get'
   match '/anonce',    to: 'static_pages#anonce',    via: 'get'
   match '/article',   to: 'static_pages#article',   via: 'get'
