@@ -1,7 +1,10 @@
 AtTwo::Application.routes.draw do
   resources :users          #эта запись заменяет  get "users/new"
+	resources :sessions, only: [:new, :create, :destroy]	#Листинг 8.2.
 	root 'static_pages#news'  #эта запись заменяет get "static_pages/home"
   match '/signup',    to: 'users#new',              via: 'get'
+  match '/signin',    to: 'sessions#new',           via: 'get'
+  match '/signout',   to: 'sessions#destroy',       via: 'delete'
   match '/anonce',    to: 'static_pages#anonce',    via: 'get'
   match '/article',   to: 'static_pages#article',   via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
