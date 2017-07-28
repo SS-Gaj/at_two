@@ -19,15 +19,14 @@ describe "Authentication" do
       describe "with valid information" do
         let(:user) { FactoryGirl.create(:user) }
 	      # в Листинг 9.5 нижеследующие 5 строк заменены на одну = 6-ю
-        #before
+        #before do
         #  fill_in "Email",    with: user.email.upcase
         #  fill_in "Password", with: user.password
         #  click_button "Sign in"
-        #
+        #end
         before { sign_in user }
 
         it { should have_title(user.name) }
-        it { should have_link('Users',       href: users_path) }  # добавлено Листингом 9.26
         it { should have_link('Profile',     href: user_path(user)) }
         it { should have_link('Settings',    href: edit_user_path(user)) }
         it { should have_link('Sign out',    href: signout_path) }
@@ -43,23 +42,7 @@ describe "Authentication" do
 
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
-      # Листинг 9.16. Тест для дружелюбной переадресации. 
-      describe "when attempting to visit a protected page" do
-        before do
-          visit edit_user_path(user)
-          fill_in "Email",    with: user.email
-          fill_in "Password", with: user.password
-          click_button "Sign in"
-        end
 
-        describe "after signing in" do
-
-          it "should render the desired protected page" do
-            expect(page).to have_title('Edit user')
-          end
-        end
-      end
-    ## конец Листинг 9.16.
 
 
     describe "for non-signed-in users" do
@@ -76,16 +59,9 @@ describe "Authentication" do
           before { patch user_path(user) }
           specify { expect(response).to redirect_to(signin_path) }
         end
-# Листинг 9.20. Тестирование того, что действие index защищено.
-        describe "visiting the user index" do
-          before { visit users_path }
-          it { should have_title('Sign in') }
-        end
-# конец Листинг 9.20.
       end
     end
-  end
-# Листинг 9.13. Тестирование того, что действия edit и update требуют правильного пользователя. 
+    # Листинг 9.13. Тестирование того, что действия edit и update требуют правильного пользователя. 
     describe "as wrong user" do
       let(:user) { FactoryGirl.create(:user) }
       let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
@@ -102,18 +78,5 @@ describe "Authentication" do
         specify { expect(response).to redirect_to(root_url) }
       end
     end
-# Листинг 9.45. Тест для защиты действия destroy
-    describe "as non-admin user" do
-      let(:user) { FactoryGirl.create(:user) }
-      let(:non_admin) { FactoryGirl.create(:user) }
-
-      before { sign_in non_admin, no_capybara: true }
-
-      describe "submitting a DELETE request to the Users#destroy action" do
-        before { delete user_path(user) }
-        specify { expect(response).to redirect_to(root_url) }
-      end
-    end
-## конец Листинг 9.45
-end
+  end
 end
