@@ -15,6 +15,13 @@ namespace :db do
                    password: password,
                    password_confirmation: password)
     end
+#Листинг 10.20. Добавление микросообщений к образцам данных
+		users = User.all(limit: 6)
+    50.times do
+      content = Faker::Lorem.sentence(5)
+      users.each { |user| user.microposts.create!(content: content) }
+    end
+##конец Листинг 10.20
   end
 end
 

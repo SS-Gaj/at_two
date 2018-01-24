@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :microposts, dependent: :destroy  #Листинг 10.8. Пользователь имеет_много микросообщений; +добавлено в Листинг 10.13
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 

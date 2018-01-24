@@ -1,6 +1,7 @@
 AtTwo::Application.routes.draw do
   resources :users          #эта запись заменяет  get "users/new"
-	resources :sessions, only: [:new, :create, :destroy]	#Листинг 8.2.
+	resources :sessions, only: [:new, :create, :destroy]	#Листинг 8.2
+  resources :microposts, only: [:create, :destroy]  #Листинг 10.22
 	root 'static_pages#news'  #эта запись заменяет get "static_pages/home"
   match '/signup',    to: 'users#new',              via: 'get'
   match '/signin',    to: 'sessions#new',           via: 'get'

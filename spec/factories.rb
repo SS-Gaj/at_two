@@ -9,4 +9,11 @@ FactoryGirl.define do
       admin true  
     end
   end
+
+#Листинг 10.9: +фабрика микросообщений
+  factory :micropost do
+    content "Lorem ipsum"
+    user
+  end
+## конец Листинг 10.9
 end

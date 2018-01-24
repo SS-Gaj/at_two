@@ -59,10 +59,18 @@ describe "UserPages" do
   describe "profile page" do
     # Replace with code to make a user variable
     let(:user) { FactoryGirl.create(:user) }
+		let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }	#Листинг 10.16 ... для отображ микросообщ на стр-це польз-ля
+    let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }	#Листинг 10.16
+
     before { visit user_path(user) }
 
     it { should have_content(user.name) }
     it { should have_title(user.name) }
+	describe "microposts" do	#Листинг 10.16
+      it { should have_content(m1.content) }
+      it { should have_content(m2.content) }
+      it { should have_content(user.microposts.count) }
+    end
   end
 
   describe "Регистрация посетителей" do
